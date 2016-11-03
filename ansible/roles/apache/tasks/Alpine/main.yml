@@ -1,0 +1,15 @@
+---
+- name: install apache
+  apk:
+    name: "apache2"
+    state: "present"
+
+- name: configure apache
+  template:
+    src: "httpd.conf.j2"
+    dest: "/etc/apache2/httpd.conf"
+
+- name: create apache run directory
+  file:
+    path: "/run/apache2"
+    state: "directory"

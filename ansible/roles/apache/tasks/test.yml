@@ -1,0 +1,4 @@
+---
+- name: check if Apache is well installed
+  assert:
+    that: true

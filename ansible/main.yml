@@ -1,0 +1,7 @@
+---
+- hosts: apache
+  vars:
+    test_mode: false
+  roles:
+    - dumb-init
+    - apache

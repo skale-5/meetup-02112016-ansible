@@ -1,0 +1,14 @@
+---
+- name: install ca-certificates
+  apk:
+    name: "ca-certificates"
+    state: "present"
+
+- name: update certificates
+  command: update-ca-certificates
+
+- name: install dumb init
+  get_url:
+    url: "https://github.com/Yelp/dumb-init/releases/download/v1.2.0/dumb-init_1.2.0_amd64"
+    dest: "/usr/bin/dumb-init"
+    mode: 0755

@@ -1,0 +1,38 @@
+#! /usr/bin/env ansible-playbook
+
+- hosts: localhost
+  become: no
+  vars:
+    distros:
+      - "yanc0/alpine-python"
+      #- "yanc0/debian-python"
+  tasks:
+    - name: run test containers
+      docker_container:
+        name: "test_{{item | regex_replace('/','-') }}"
+        image: "{{item}}:latest"
+        command: "sleep 10000"
+      with_items: "{{distros}}"
+
+    - name: add containers in the ansible inventory
+      add_host:
+        hostname: "test_{{item | regex_replace('/','-') }}"
+        ansible_connection: "docker"
+        groups: "containers"
+      with_items: "{{distros}}"
+      changed_when: false
+
+- hosts: containers
+  become: no
+  vars:
+    role: "apache"
+
+  pre_tasks:
+    - name: ansible in a container?
+      fail:
+        msg: "this playbook is not running in a container"
+      when: "ansible_virtualization_type != 'docker'"
+      
+  roles:
+    - role: "{{role}}"
+      test_mode: true

@@ -1,0 +1,10 @@
+---
+- include: "{{ansible_distribution}}/main.yml"
+
+- name: deploy app
+  copy:
+    src: "{{lookup('pipe', 'echo `pwd`') | dirname}}/app/"
+    dest: "{{app_dir}}"
+
+- include: "test.yml"
+  when: "test_mode"
