@@ -2,7 +2,7 @@
 
 For this demo with used GKE on Google Cloud Plateform.
 
-(slides here)[https://speakerdeck.com/yanc0/ansible-in-a-container-era#]
+[slide deck here](https://speakerdeck.com/yanc0/ansible-in-a-container-era#)
 
 ## Install (in a virtualenv)
 
